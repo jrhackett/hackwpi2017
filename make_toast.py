@@ -12,8 +12,8 @@ GPIO.setmode(GPIO.BCM)
 app = Flask(__name__)
 ask = Ask(app, '/')
 
-motor = Motor(0, 1, 2, 3) # TODO change these values to the actual pins and duty cycle
-toaster = Toaster(0, 1, 2, 3) # TODO change these values to the actual pins
+motor = Motor(13, 19, 6, 100)
+toaster = Toaster(25, 8, 24, 7)
 
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
