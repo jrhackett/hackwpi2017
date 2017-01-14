@@ -45,10 +45,10 @@ def construct_time_break(time):
     t = int(time)
     to_return = ''
     while(t > 10):
-        to_return += '<break time="10s" /> '
+        to_return += "<break time='10s' /> "
         t -= 10
     if(t > 0):
-        to_return += '<break time=' + str(t) + '" />'
+        to_return += "<break time=" + str(t) + "' />"
     return to_return
 
 @ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time', 'food': 'food', 'time_identifier': 'time_identifier'})
