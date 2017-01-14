@@ -10,4 +10,6 @@ Lumbini Parnas
 
 Denver Cohen
 
-Calvin Figuero-Supraner (spelling is hard)
+Calvin Figuero-Supraner
+
+Mike Inserra
