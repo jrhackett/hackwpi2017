@@ -52,12 +52,13 @@ def make_toast(shade, time, food, time_identifier):
     if(time_identifier == "in"):
         time = make_localtime(time)
 
+    if(shade == None):
+        shade = "medium"
+
     if(time != None):
-        # might have to convert time here
-        times = time.split(":")
-        t = datetime.time(int(times[0].encode("utf-8")), int(times[1].encode("utf-8")))
-        return statement('I will make your {} {} at  {}'.format(food, shade, time))
+        # will need to open another process using POpen here to handle the waiting and still send message to alexa
         # wait_start(time, lambda: toast(shade, food))
+        return statement('I will make your {} {} at  {}'.format(food, shade, time))
     else:
         # toast(shade, food)
         return statement('I will make your {} {} right now'.format(food, shade, time))
