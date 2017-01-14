@@ -27,7 +27,7 @@ class Toaster:
 		GPIO.output(self.heaterEnablePin, GPIO.HIGH)
 
 	def is_toaster_on(self):
-		return not GPIO.input(self.toasterPin)
+		return GPIO.input(self.toasterPin)
 
 	def is_bagel_mode(self):
 		return self.bagelEnabled
