@@ -20,8 +20,8 @@ logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 # TODO fix values for these wait times
 # should be in whole seconds
 wait_time_lookup = { \
-    'toast': {'light': 1, 'medium': 1, 'dark': 1}, \
-    'bagel': {'light': 1, 'medium': 1, 'dark': 1} \
+    'toast': {'light': 10, 'medium': 20, 'dark': 30}, \
+    'bagel': {'light': 10, 'medium': 20, 'dark': 30} \
 }
 
 # wait_start from answer from http://stackoverflow.com/questions/6579127/delay-a-task-until-certain-time
@@ -56,7 +56,7 @@ def make_toast(shade, time, food, time_identifier):
         # wait_start(time, lambda: toast(shade, food))
         return statement('I will make your {} {} at  {}'.format(food, shade, time))
     else:
-        # toast(shade, food)
+        toast(shade, food)
         return statement('I will make your {} {} right now'.format(food, shade, time))
 
 def toast(shade, food):
@@ -66,11 +66,13 @@ def toast(shade, food):
     start_time = time.time()
     diff = time.time() - start_time
     outside = False
-    while(diff > wait_time):
-        if(int(diff) % 5 == 0):
+    while(diff < wait_time):
+        if(diff % 5 == 0):
             if(outside):
+                outside = False
                 toaster.enable_inside()
             else:
+                outside = True
                 toaster.enable_outside()
         diff = time.time() - start_time
     release_toaster()
