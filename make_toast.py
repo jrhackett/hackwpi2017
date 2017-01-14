@@ -102,7 +102,7 @@ def toast(shade, food):
 
 def engage_toaster():
     motor.clockwise()
-    while(!toaster.is_toaster_on()):
+    while(not toaster.is_toaster_on()):
         pass
     toaster.enable_solenoid()
     motor.stop()
