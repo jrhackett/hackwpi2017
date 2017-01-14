@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_ask import Ask, statement, convert_errors
 from motor import Motor
+from toaster import Toaster
 import RPi.GPIO as GPIO
 import logging
 import datetime
@@ -12,6 +13,7 @@ app = Flask(__name__)
 ask = Ask(app, '/')
 
 motor = Motor(0, 1, 2, 3) # TODO change these values to the actual pins and duty cycle
+toaster = Toaster(0, 1, 2, 3) # TODO change these values to the actual pins
 
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
@@ -58,7 +60,7 @@ def make_toast(shade, time, food, time_identifier):
         # wait_start(time, lambda: toast(shade, food))
     else:
         # toast(shade, food)
-        return statement('I will make your {} {} at  {}'.format(food, shade, time))
+        return statement('I will make your {} {} right now'.format(food, shade, time))
 
 def toast(shade, food):
     engage_toaster()
@@ -85,19 +87,32 @@ def toast(shade, food):
             wait_time = 0
     else:
         wait_time = 0
+    start_time = time.time()
+    diff = time.time() - start_time
+    outside = False
+    while(diff > wait_time):
+        if(diff % 5 == 0):
+            if(outside):
+                toaster.enable_inside()
+            else:
+                toaster.enable_outside()
+        diff = time.time() - start_time
     release_toaster()
 
 def engage_toaster():
     motor.clockwise()
-    sleep(2)
-    # engage toaster solenoid
+    while(!toaster.is_toaster_on()):
+        pass
+    toaster.enable_solenoid()
     motor.stop()
+    toaster.enable_heater()
 
 def release_toaster():
+    toaster.disable_heater()
     motor.counterclockwise()
     sleep(2)
-    # release toaster solenoid
     motor.stop()
+    toaster.disable_solenoid()
 
 if __name__ == "__main__":
     app.run()
