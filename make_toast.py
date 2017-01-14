@@ -12,17 +12,27 @@ logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
 @ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time'})
 def make_toast(shade, time):
-    pinNum = -1
-    if(shade == "light"):
-        pinNum = 2
-    elif (shade == "medium"):
+    if(shade != None):
+        pinNum = -1
+        if(shade == "light"):
+            pinNum = 2
+        elif (shade == "medium"):
+            pinNum = 4
+        elif (shade == "dark"):
+            pinNum = 26
+    else:
         pinNum = 4
-    elif (shade == "dark"):
-        pinNum = 26
+        shade = "medium"
+
+    # handle time eventually
+
     if(pinNum != -1):
         GPIO.setup(pinNum, GPIO.OUT)
         GPIO.output(pinNum, GPIO.HIGH)
-        return statement('I will make your toast {} at  {}'.format(shade, time))
+        if(time != None):
+            return statement('I will make your toast {} at  {}'.format(shade, time))
+        else:
+            return statement('I will make your toast {} right now'.format(shade))
     else:
         return statement('I think your shade of toast is not correct')
 
