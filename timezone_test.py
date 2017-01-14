@@ -5,7 +5,7 @@ import time
 def make_localtime(tstr):
     """Convert HH:MM in UTC to HH:MM in local timezone."""
     # hours west of UTC
-    offset_h = time.altzone // 3600 # hours west of UTC
+    offset_h = time.timezone // 3600 # hours west of UTC
     # subtract offset, reduce mod24, cast to str
     local_h = str((int(tstr[:2]) - offset_h + 24) % 24)
     # get minutes
