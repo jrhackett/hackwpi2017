@@ -7,6 +7,7 @@ class Toaster:
 		self.solenoidPin = solenoidPin
 		self.toasterPin = toasterPin
 		self.heaterSelectPin = heaterSelectPin
+		self.bagelEnabled = False
 
 		GPIO.setup(self.heaterEnablePin, GPIO.OUT)
 		GPIO.setup(self.solenoidPin, GPIO.OUT)
@@ -27,6 +28,15 @@ class Toaster:
 
 	def is_toaster_on():
 		return not GPIO.input(self.toasterPin)
+
+	def is_bagel_mode():
+		return self.bagelEnabled
+
+	def enable_bagel_mode():
+		self.bagelEnabled = True
+
+	def disable_bagel_mode():
+		self.bagelEnabled = False
 
 	def enable_outside():
 		GPIO.output(self.heaterSelectPin, GPIO.HIGH)

@@ -17,6 +17,13 @@ toaster = Toaster(0, 1, 2, 3) # TODO change these values to the actual pins
 
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
+# TODO fix values for these wait times
+# should be in whole seconds
+wait_time_lookup = { \
+    'toast': {'light': 1, 'medium': 1, 'dark': 1}, \
+    'bagel': {'light': 1, 'medium': 1, 'dark': 1} \
+}
+
 # wait_start from answer from http://stackoverflow.com/questions/6579127/delay-a-task-until-certain-time
 def wait_start(runTime, action):
     startTime = time(*(map(int, runTime.split(':'))))
@@ -37,20 +44,9 @@ def make_localtime(tstr):
 @ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time', 'food': 'food', 'time_identifier': 'time_identifier'})
 def make_toast(shade, time, food, time_identifier):
 
-    # if(pinNum != -1):
-    #     GPIO.setup(pinNum, GPIO.OUT)
-    #     GPIO.output(pinNum, GPIO.HIGH)
-    #     if(time != None):
-    #         return statement('I will make your {} {} at  {}'.format(food, shade, time))
-    #     else:
-    #         return statement('I will make your {} {} right now'.format(food, shade))
-    # else:
-    #     return statement('I think your shade of {} is not correct').format(food)
-
-    # new implementation for this function below this point
-
-    if(time_identifier == "in"):
-        time = make_localtime(time)
+    # only needed for testing due to time zone issues
+    # if(time_identifier == "in"):
+    #     time = make_localtime(time)
 
     if(shade == None):
         shade = "medium"
@@ -66,33 +62,12 @@ def make_toast(shade, time, food, time_identifier):
 def toast(shade, food):
     engage_toaster()
     wait_time = 0
-    if(food == "toast"):
-        # turn off bagel mode
-        if(shade == "light"):
-            wait_time = 1 # TODO fix value
-        elif(shade == "medium"):
-            wait_time = 1 # TODO fix value
-        elif(shade == "dark"):
-            wait_time = 1 # TODO fix value
-        else:
-            wait_time = 0
-    elif(food == "bagel"):
-        # turn on bagel mode
-        if(shade == "light"):
-            wait_time = 1 # TODO fix value
-        elif(shade == "medium"):
-            wait_time = 1 # TODO fix value
-        elif(shade == "dark"):
-            wait_time = 1 # TODO fix value
-        else:
-            wait_time = 0
-    else:
-        wait_time = 0
+    wait_time = wait_time_lookup[toast][shade]
     start_time = time.time()
     diff = time.time() - start_time
     outside = False
     while(diff > wait_time):
-        if(diff % 5 == 0):
+        if(int(diff) % 5 == 0):
             if(outside):
                 toaster.enable_inside()
             else:
