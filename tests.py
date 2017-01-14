@@ -61,4 +61,4 @@ def test_time_conversion():
 	print("Local time\t{}".format(t_new))
 
 if __name__ == "__main__":
-    pass
+    test_engage_toaster()
