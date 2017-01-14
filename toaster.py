@@ -14,32 +14,32 @@ class Toaster:
 		GPIO.setup(self.toasterPin, GPIO.IN)
 		GPIO.setup(self.heaterSelectPin, GPIO.OUT)
 
-	def enable_solenoid():
+	def enable_solenoid(self):
 		GPIO.output(self.solenoidPin, GPIO.LOW)
 
-	def disable_solenoid():
+	def disable_solenoid(self):
 		GPIO.output(self.solenoidPin, GPIO.HIGH)
 
-	def enable_heater():
+	def enable_heater(self):
 		GPIO.output(self.heaterEnablePin, GPIO.LOW)
 
-	def disable_heater():
+	def disable_heater(self):
 		GPIO.output(self.heaterEnablePin, GPIO.HIGH)
 
-	def is_toaster_on():
+	def is_toaster_on(self):
 		return not GPIO.input(self.toasterPin)
 
-	def is_bagel_mode():
+	def is_bagel_mode(self):
 		return self.bagelEnabled
 
-	def enable_bagel_mode():
+	def enable_bagel_mode(self):
 		self.bagelEnabled = True
 
-	def disable_bagel_mode():
+	def disable_bagel_mode(self):
 		self.bagelEnabled = False
 
-	def enable_outside():
+	def enable_outside(self):
 		GPIO.output(self.heaterSelectPin, GPIO.HIGH)
 
-	def enable_inside():
+	def enable_inside(self):
 		GPIO.output(self.heaterSelectPin, GPIO.LOW)
