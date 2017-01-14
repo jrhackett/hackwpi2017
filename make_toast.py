@@ -11,7 +11,7 @@ ask = Ask(app, '/')
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
 @ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time', 'food': 'food'})
-def make_toast(shade, time):
+def make_toast(shade, time, food):
     if(shade != None):
         pinNum = -1
         if(shade == "light"):
@@ -34,7 +34,7 @@ def make_toast(shade, time):
         else:
             return statement('I will make your {} {} right now'.format(food, shade))
     else:
-        return statement('I think your shade of toast is not correct')
+        return statement('I think your shade of {} is not correct').format(food)
 
 if __name__ == "__main__":
     app.run()
