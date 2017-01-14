@@ -20,7 +20,7 @@ logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 # TODO fix values for these wait times
 # should be in whole seconds
 wait_time_lookup = { \
-    'toast': {'light': 10, 'medium': 20, 'dark': 30}, \
+    'toast': {'light': 10, 'medium': 10, 'dark': 30}, \
     'bagel': {'light': 10, 'medium': 20, 'dark': 30} \
 }
 
@@ -49,20 +49,22 @@ def make_toast(shade, time, food, time_identifier):
     #     time = make_localtime(time)
 
     if(shade == None):
-        shade = "medium"
+        shade = 'medium'
 
     if(time != None):
         # will need to open another process using POpen here to handle the waiting and still send message to alexa
         # wait_start(time, lambda: toast(shade, food))
-        return statement('I will make your {} {} at  {}'.format(food, shade, time))
+        # return statement('I will make your {} {} at  {}'.format(food, shade, time))
+        return statement('You done fucked up bro')
     else:
-        toast(shade, food)
-        return statement('I will make your {} {} right now'.format(food, shade, time))
-
+        # toast(shade, food)
+        # return statement('I will make <break time="2s"/> your {} {} right now'.format(food, shade, time))
+        print '<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. <break time ="' + str(wait_time_lookup[food][shade]) +'s"/> Your toast is done.</speak>'
+        return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now.<break time = "10s" /> <break time ="' + str(wait_time_lookup[food][shade]) +'s"/> Your toast is done.</speak>')
 def toast(shade, food):
     engage_toaster()
     wait_time = 0
-    wait_time = wait_time_lookup[toast][shade]
+    wait_time = wait_time_lookup[food][shade]
     start_time = time.time()
     diff = time.time() - start_time
     outside = False
