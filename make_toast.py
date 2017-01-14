@@ -10,7 +10,7 @@ ask = Ask(app, '/')
 
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
-@ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time'})
+@ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time', 'food': 'food'})
 def make_toast(shade, time):
     if(shade != None):
         pinNum = -1
