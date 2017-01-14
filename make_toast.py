@@ -3,8 +3,8 @@ from flask_ask import Ask, statement, convert_errors
 from motor import Motor
 import RPi.GPIO as GPIO
 import logging
-from datetime import datetime, time
-from time import sleep
+import datetime
+#from time import sleep
 
 
 # example code for waiting till certain time from http://stackoverflow.com/questions/6579127/delay-a-task-until-certain-time
@@ -59,7 +59,9 @@ def make_toast(shade, time, food):
     # new implementation for this function below this point
     if(time != None):
         # might have to convert time here
-        print time
+        times = time.split(":")
+        t = datetime.time(int(times[0].encode("utf-8")), int(times[1].encode("utf-8")))
+        print t
         return statement('I will make your {} {} at  {}'.format(food, shade, time))
         # wait_start(time, lambda: toast(shade, food))
     else:
@@ -76,24 +78,33 @@ def toast(shade, food):
         # turn off bagel mode
         if(shade == "light"):
             # wait time for light toast
+            print "light toast"
         elif(shade == "medium"):
             # wait time for medium toast
+            print "medium toast"
         elif(shade == "dark"):
             # wait time for dark toast
+            print "dark toast"
         else:
             # default
+            print "default toast"
     elif(food == "bagel"):
         # turn on bagel mode
         if(shade == "light"):
             # wait time for light bagel
+            print "light bagel"
         elif(shade == "medium"):
             # wait time for medium bagel
+            print "medium bagel"
         elif(shade == "dark"):
             # wait time for dark bagel
+            print "dark bagel"
         else:
             # default
+            print "default bagel"
     else:
         # default
+        print "default food"
 
     release_toaster()
 
