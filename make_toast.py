@@ -30,9 +30,9 @@ def make_toast(shade, time):
         GPIO.setup(pinNum, GPIO.OUT)
         GPIO.output(pinNum, GPIO.HIGH)
         if(time != None):
-            return statement('I will make your toast {} at  {}'.format(shade, time))
+            return statement('I will make your {} {} at  {}'.format(food, shade, time))
         else:
-            return statement('I will make your toast {} right now'.format(shade))
+            return statement('I will make your {} {} right now'.format(food, shade))
     else:
         return statement('I think your shade of toast is not correct')
 
