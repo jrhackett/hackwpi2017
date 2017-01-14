@@ -41,6 +41,16 @@ def make_localtime(tstr):
     local_m = tstr[3:]
     return "{}:{}".format(local_h, local_m)
 
+def construct_time_break(time):
+    t = int(time)
+    to_return = ''
+    while(t > 10):
+        to_return += '<break time="10s" /> '
+        t -= 10
+    if(t > 0):
+        to_return += '<break time=' + str(t) + '" />'
+    return to_return
+
 @ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time', 'food': 'food', 'time_identifier': 'time_identifier'})
 def make_toast(shade, time, food, time_identifier):
 
@@ -59,8 +69,7 @@ def make_toast(shade, time, food, time_identifier):
     else:
         # toast(shade, food)
         # return statement('I will make <break time="2s"/> your {} {} right now'.format(food, shade, time))
-        print '<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. <break time ="' + str(wait_time_lookup[food][shade]) +'s"/> Your toast is done.</speak>'
-        return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now.<break time = "10s" /> <break time ="' + str(wait_time_lookup[food][shade]) +'s"/> Your toast is done.</speak>')
+        return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade]) +' Your toast is done.</speak>')
 def toast(shade, food):
     engage_toaster()
     wait_time = 0
