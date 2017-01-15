@@ -1,3 +1,3 @@
 #!/usr/bin/bash
-python toaster.py $1
+python run_toaster.py $1 $2
 exit

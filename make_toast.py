@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 import logging
 import datetime
 import time
+from subprocess import Popen
 
 GPIO.setmode(GPIO.BCM)
 
@@ -23,23 +24,6 @@ wait_time_lookup = { \
     'toast': {'light': 10, 'medium': 22, 'dark': 30}, \
     'bagel': {'light': 10, 'medium': 20, 'dark': 30} \
 }
-
-# wait_start from answer from http://stackoverflow.com/questions/6579127/delay-a-task-until-certain-time
-def wait_start(runTime, action):
-    startTime = time(*(map(int, runTime.split(':'))))
-    while startTime > datetime.today().time(): # you can add here any additional variable to break loop if necessary
-        sleep(1)# you can change 1 sec interval to any other
-    return action
-
-def make_localtime(tstr):
-    """Convert HH:MM in UTC to HH:MM in local timezone."""
-    # hours west of UTC
-    offset_h = time.timezone // 3600 # hours west of UTC
-    # subtract offset, reduce mod24, cast to str
-    local_h = str((int(tstr[:2]) - offset_h + 24) % 24)
-    # get minutes
-    local_m = tstr[3:]
-    return "{}:{}".format(local_h, local_m)
 
 def construct_time_break(time):
     t = int(time)
@@ -68,41 +52,8 @@ def make_toast(shade, time, food, time_identifier):
         return statement('You done fucked up bro')
     else:
         # toast(shade, food)
-        # return statement('I will make <break time="2s"/> your {} {} right now'.format(food, shade, time))
-        print '<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade]) +' Your toast is done.</speak>'
+        subprocess.call('./sub.sh ' + str(wait_time_lookup[food][shade]))
         return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade]) +' Your toast is done.</speak>')
-def toast(shade, food):
-    engage_toaster()
-    wait_time = 0
-    wait_time = wait_time_lookup[food][shade]
-    start_time = time.time()
-    diff = time.time() - start_time
-    outside = False
-    while(diff < wait_time):
-        if(diff % 5 == 0):
-            if(outside):
-                outside = False
-                toaster.enable_inside()
-            else:
-                outside = True
-                toaster.enable_outside()
-        diff = time.time() - start_time
-    release_toaster()
-
-def engage_toaster():
-    motor.clockwise()
-    while(not toaster.is_toaster_on()):
-        pass
-    toaster.enable_solenoid()
-    motor.stop()
-    toaster.enable_heater()
-
-def release_toaster():
-    toaster.disable_heater()
-    motor.counterclockwise()
-    sleep(2)
-    motor.stop()
-    toaster.disable_solenoid()
 
 if __name__ == "__main__":
     app.run()
