@@ -43,7 +43,7 @@ def toast(wait_time):
   previous = 0
   while(diff < end_time):
     tmp = int(diff)
-    if(tmp != previous && tmp % 8 == 0):
+    if(tmp != previous and tmp % 8 == 0):
       previous = tmp
       print "[1] " + str(int(end_time - diff)) + " seconds left of cooking" 
       if(outside):
