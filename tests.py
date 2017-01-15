@@ -16,8 +16,9 @@ def engage_toaster():
     while(not toaster.is_toaster_on()):
         pass
     toaster.enable_solenoid()
+    sleep(1.2)
     motor.stop()
-    toaster.enable_heater()
+    #toaster.enable_heater()
 
 def test_engage_toaster():
     engage_toaster()
@@ -25,7 +26,7 @@ def test_engage_toaster():
 def release_toaster():
     toaster.disable_heater()
     motor.counterclockwise()
-    sleep(2)
+    sleep(3)
     motor.stop()
     toaster.disable_solenoid()
 
@@ -65,6 +66,6 @@ def test_time_conversion():
     print("Local time\t{}".format(t_new))
 
 if __name__ == "__main__":
-    test_engage_toaster()
-    test_cycle_heat()
+   # test_engage_toaster()
+    #test_cycle_heat()
     test_release_toaster()

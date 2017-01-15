@@ -15,13 +15,13 @@ class Motor:
 		setPWM = GPIO.PWM(self.motorEnable, self.dutyCycle)
 
 	def clockwise(self):
-		GPIO.output(self.motorPin1, GPIO.HIGH)
-		GPIO.output(self.motorPin2, GPIO.LOW)
+		GPIO.output(self.motorPin1, GPIO.LOW)
+		GPIO.output(self.motorPin2, GPIO.HIGH)
 		GPIO.output(self.motorEnable, GPIO.HIGH)
 
 	def counterclockwise(self):
-		GPIO.output(self.motorPin1, GPIO.LOW)
-		GPIO.output(self.motorPin2, GPIO.HIGH)
+		GPIO.output(self.motorPin1, GPIO.HIGH)
+		GPIO.output(self.motorPin2, GPIO.LOW)
 		GPIO.output(self.motorEnable, GPIO.HIGH)
 
 	def stop(self):
