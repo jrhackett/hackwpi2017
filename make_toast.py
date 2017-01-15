@@ -46,10 +46,10 @@ def make_toast(shade, time, food, time_identifier):
         shade = 'medium'
 
     if(time != None):
-        subprocess.Popen('./sub.sh ' + str(wait_time_lookup[food][shade]) + ' ' + time)
+        Popen('./sub.sh ' + str(wait_time_lookup[food][shade]) + ' ' + time, shell=True, executable="/bin/bash")
         return statement('I will make your {} {} at  {}'.format(food, shade, time))
     else:
-        subprocess.Popen('./sub.sh ' + str(wait_time_lookup[food][shade]))
+        Popen('./sub.sh ' + str(wait_time_lookup[food][shade]), shell=True, executable="/bin/bash")
         return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade]) +' Your toast is done.</speak>')
 
 if __name__ == "__main__":

@@ -49,10 +49,10 @@ def main(argv):
 		sys.exit(2)
 	if len(args) < 1:
 		sys.exit(2)
-		
+
 	time = args[0]
-	if(arg[1] != None):
-		wait = arg[1]
+	if(args[1] != None):
+		wait = args[1]
 
 	if(wait > 0):
 		wait_start(wait, lambda: toast(time))
