@@ -1,4 +1,11 @@
 import sys, getopt
+from motor import Motor
+from toaster import Toaster
+import datetime
+import time
+
+motor = Motor(13, 19, 6, 100)
+toaster = Toaster(25, 8, 24, 7)
 
 # wait_start from answer from http://stackoverflow.com/questions/6579127/delay-a-task-until-certain-time
 def wait_start(runTime, action):
