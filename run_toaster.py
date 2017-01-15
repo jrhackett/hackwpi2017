@@ -3,6 +3,7 @@ from motor import Motor
 from toaster import Toaster
 import datetime
 import time
+from time import sleep
 
 motor = Motor(13, 19, 6, 100)
 toaster = Toaster(25, 8, 24, 7)
