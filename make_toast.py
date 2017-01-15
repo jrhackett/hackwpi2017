@@ -47,6 +47,7 @@ def make_toast(shade, time, food, time_identifier):
 
     if(time != None):
         Popen('./sub.sh ' + str(wait_time_lookup[food][shade]) + ' ' + time, shell=True, executable="/bin/bash")
+        # TODO fix this for SSML
         return statement('I will make your {} {} at  {}'.format(food, shade, time))
     else:
         Popen('./sub.sh ' + str(wait_time_lookup[food][shade]), shell=True, executable="/bin/bash")
