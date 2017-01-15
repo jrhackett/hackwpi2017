@@ -51,7 +51,7 @@ def main(argv):
 		sys.exit(2)
 
 	time = args[0]
-	if(args[1] != None):
+	if(len(args) > 1):
 		wait = args[1]
 
 	if(wait > 0):
