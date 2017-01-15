@@ -1,7 +1,5 @@
 from flask import Flask
 from flask_ask import Ask, statement, convert_errors
-from motor import Motor
-from toaster import Toaster
 import RPi.GPIO as GPIO
 import logging
 import datetime
@@ -13,15 +11,12 @@ GPIO.setmode(GPIO.BCM)
 app = Flask(__name__)
 ask = Ask(app, '/')
 
-motor = Motor(13, 19, 6, 100)
-toaster = Toaster(25, 8, 24, 7)
-
 logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 
 # TODO fix values for these wait times
 # should be in whole seconds
 wait_time_lookup = { \
-    'toast': {'light': 10, 'medium': 22, 'dark': 30}, \
+    'toast': {'light': 100, 'medium': 200, 'dark': 300}, \
     'bagel': {'light': 10, 'medium': 20, 'dark': 30} \
 }
 
@@ -37,10 +32,6 @@ def construct_time_break(time):
 
 @ask.intent('MakeMyToastIntent', mapping={'shade': 'shade', 'time': 'time', 'food': 'food', 'time_identifier': 'time_identifier'})
 def make_toast(shade, time, food, time_identifier):
-
-    # only needed for testing due to time zone issues
-    # if(time_identifier == "in"):
-    #     time = make_localtime(time)
 
     if(shade == None):
         shade = 'medium'
