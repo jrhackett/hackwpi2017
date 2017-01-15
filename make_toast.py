@@ -46,13 +46,10 @@ def make_toast(shade, time, food, time_identifier):
         shade = 'medium'
 
     if(time != None):
-        # will need to open another process using POpen here to handle the waiting and still send message to alexa
-        # wait_start(time, lambda: toast(shade, food))
-        # return statement('I will make your {} {} at  {}'.format(food, shade, time))
-        return statement('You done fucked up bro')
+        subprocess.Popen('./sub.sh ' + str(wait_time_lookup[food][shade]) + ' ' + time)
+        return statement('I will make your {} {} at  {}'.format(food, shade, time))
     else:
-        # toast(shade, food)
-        subprocess.call('./sub.sh ' + str(wait_time_lookup[food][shade]))
+        subprocess.Popen('./sub.sh ' + str(wait_time_lookup[food][shade]))
         return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade]) +' Your toast is done.</speak>')
 
 if __name__ == "__main__":
