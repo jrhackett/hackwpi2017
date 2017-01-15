@@ -33,12 +33,15 @@ def engage_toaster():
   toaster.enable_heater()
 
 def toast(wait_time):
+  print "[1] Engaging the toaster"
   engage_toaster()
+  print "[1] Toaster engaged"
   start_time = time.time()
   diff = time.time() - start_time
   outside = False
   while(diff < wait_time):
-    if(int(diff) % 5 == 0):
+    if(int(diff) % 8 == 0):
+      print "[1] " + str(diff) + " seconds left of cooking" 
       if(outside):
         outside = False
         toaster.enable_inside()
@@ -46,7 +49,9 @@ def toast(wait_time):
         outside = True
         toaster.enable_outside()
     diff = time.time() - start_time
+  print "[1] Releasing the toaster"
   release_toaster()
+  print "[1] Toaster released"
 
 def main(argv):
 	time = 0
