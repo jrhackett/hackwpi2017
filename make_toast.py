@@ -16,7 +16,7 @@ logging.getLogger("flask_ask").setLevel(logging.DEBUG)
 # TODO fix values for these wait times
 # should be in whole seconds
 wait_time_lookup = { \
-    'toast': {'light': 100, 'medium': 200, 'dark': 300}, \
+    'toast': {'light': 100, 'medium': 150, 'dark': 200}, \
     'bagel': {'light': 10, 'medium': 20, 'dark': 30} \
 }
 
@@ -42,7 +42,7 @@ def make_toast(shade, time, food, time_identifier):
         return statement('I will make your {} {} at  {}'.format(food, shade, time))
     else:
         Popen('./sub.sh ' + str(wait_time_lookup[food][shade]), shell=True, executable="/bin/bash")
-        return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade] + 10) +' Your toast is done.</speak>')
+        return statement('<speak>I will make your ' + str(food) + ' ' + str(shade) + ' right now. ' + construct_time_break(wait_time_lookup[food][shade] + 7) +' Your toast is done.</speak>')
 
 if __name__ == "__main__":
     app.run()
