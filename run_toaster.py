@@ -10,7 +10,10 @@ toaster = Toaster(25, 8, 24, 7)
 
 # wait_start from answer from http://stackoverflow.com/questions/6579127/delay-a-task-until-certain-time
 def wait_start(runTime, action):
-  startTime = time(*(map(int, runTime.split(':'))))
+  times = runTime.split(':')
+  times[0] = int(times[0])
+  times[1] = int(times[1])
+  startTime = time.time(times[0], times[1])
   while startTime > datetime.today().time(): # you can add here any additional variable to break loop if necessary
       sleep(1)# you can change 1 sec interval to any other
   return action
