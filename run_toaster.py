@@ -55,9 +55,11 @@ def main(argv):
 		wait = args[1]
 
 	if(wait > 0):
-		wait_start(wait, lambda: toast(time))
+		#wait_start(wait, lambda: toast(time))
+                print wait, time
 	else:
-		toast(time)
+		#toast(time)
+                print time
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
