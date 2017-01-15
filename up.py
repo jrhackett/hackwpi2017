@@ -16,7 +16,8 @@ def engage_toaster():
     while(not toaster.is_toaster_on()):
         pass
     toaster.enable_solenoid()
-    sleep(2.7)
+    print "toaster engaged"
+    sleep(4.5)
     motor.stop()
     #toaster.enable_heater()
 
