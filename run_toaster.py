@@ -10,7 +10,7 @@ def wait_start(runTime, action):
 def release_toaster():
   toaster.disable_heater()
   motor.counterclockwise()
-  sleep(3)
+  sleep(2.5)
   motor.stop()
   toaster.disable_solenoid()
 
@@ -20,7 +20,7 @@ def engage_toaster():
   while(not toaster.is_toaster_on()):
       pass
   toaster.enable_solenoid()
-  sleep(1.2)
+  sleep(4.5)
   motor.stop()
   toaster.enable_heater()
 
@@ -55,11 +55,9 @@ def main(argv):
 		wait = args[1]
 
 	if(wait > 0):
-		#wait_start(wait, lambda: toast(time))
-                print wait, time
+		wait_start(wait, lambda: toast(time))
 	else:
-		#toast(time)
-                print time
+		toast(time)
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
