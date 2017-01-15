@@ -44,13 +44,13 @@ def toast(wait_time):
   while(diff < end_time):
     tmp = int(diff)
     if(outside):
-      if(tmp != previous and (tmp - previous) % 10 == 0):
+      if(tmp != previous and (tmp - previous) % 4 == 0):
         previous = tmp
         print "[1] " + str(int(end_time - diff)) + " seconds left of cooking" 
         outside = False
         toaster.enable_inside()
     else:
-      if(tmp != previous and (tmp - previous) % 5 == 0):
+      if(tmp != previous and (tmp - previous) % 12 == 0):
         previous = tmp
         print "[1] " + str(int(end_time - diff)) + " seconds left of cooking"
         outside = True
