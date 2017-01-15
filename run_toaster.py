@@ -41,20 +41,23 @@ def toast(wait_time):
   diff = time.time() - start_time
   outside = True
   previous = 0
+
+  toaster.enable_outside  ## TODO REMOVE THIS IF WE WANT DUTY CYCLES BACK
+
   while(diff < end_time):
-    tmp = int(diff)
-    if(outside):
-      if(tmp != previous and (tmp - previous) % 10 == 0):
-        previous = tmp
-        print "[1] " + str(int(end_time - diff)) + " seconds left of cooking" 
-        outside = False
-        toaster.enable_inside()
-    else:
-      if(tmp != previous and (tmp - previous) % 5 == 0):
-        previous = tmp
-        print "[1] " + str(int(end_time - diff)) + " seconds left of cooking"
-        outside = True
-        toaster.enable_outside()
+    # tmp = int(diff)
+    # if(outside):
+    #   if(tmp != previous and (tmp - previous) % 10 == 0):
+    #     previous = tmp
+    #     print "[1] " + str(int(end_time - diff)) + " seconds left of cooking" 
+    #     outside = False
+    #     toaster.enable_inside()
+    # else:
+    #   if(tmp != previous and (tmp - previous) % 5 == 0):
+    #     previous = tmp
+    #     print "[1] " + str(int(end_time - diff)) + " seconds left of cooking"
+    #     outside = True
+    #     toaster.enable_outside()
     diff = time.time() - start_time
   print "[1] Releasing the toaster"
   release_toaster()
